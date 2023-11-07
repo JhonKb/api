@@ -39,11 +39,11 @@ class VotosService extends ServiceGeneric
     protected function verificarChaveEstrangeira($dados)
     {
         try {
-            $this->VotosRepository->getDatabase()->getOneByKey('chapas', $dados['idChapa']);
+            $chapa = $this->VotosRepository->getDatabase()->getOneByKey('chapas', $dados['idChapa']);
         } catch (\Exception $e) {
             throw new \InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_CHAVE_ESTRANGEIRA);
         }
-        if ($this->verificarAluno($dados)) {
+        if ($this->verificarAluno($dados, $chapa)) {
             return true;
         }
     }
@@ -54,20 +54,18 @@ class VotosService extends ServiceGeneric
      * @param mixed $dados
      * @return mixed
      */
-    private function verificarAluno($dados)
+    private function verificarAluno($dados, $chapa)
     {
-        $nome = $dados['nomeVoto'];
-        $matricula = $dados['matriculaVoto'];
-        $chapa = $this->VotosRepository->getDatabase()->getOneByKey($dados['idChapa']);
+        $votante = $dados['idVotante'];
         $alunos = $this->VotosRepository->getDatabase()->getAll('alunos');
         foreach ($alunos as $aluno) {
-            if ($aluno['nomeAluno'] === $nome && $aluno['matriculaAluno'] === $matricula) {
+            if ($aluno['id'] === $votante) {
                 if ($aluno['idTurma'] === $chapa['idTurma']) {
                     return true;
                 }
                 throw new \InvalidArgumentException('Turmas de aluno e chapa não correspondem!');
             }
-            throw new \InvalidArgumentException('Aluno não existe ou dados não correspondem!');
+            throw new \InvalidArgumentException('Aluno não existe!');
         }
     }
 }

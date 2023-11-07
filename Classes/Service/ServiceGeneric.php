@@ -3,6 +3,7 @@
 namespace Service;
 
 use InvalidArgumentException;
+use Repository\ChapasRepository;
 use Util\ConstantesGenericasUtil;
 
 /**
@@ -184,13 +185,13 @@ abstract class ServiceGeneric
 
     /**
      * Recurso cadastrar
-     * @return array
+     * @return mixed
      */
     private function cadastrar()
     {
         //Transforma no método insert do repositório da tabela informada
         $insert = 'insert'.rtrim(ucfirst($this->tabela), "s");
-        return ['id_Inserido' => $this->repository->$insert($this->dadosCorpoRequest)];
+            return ['id_Inserido' => $this->repository->$insert($this->dadosCorpoRequest)];
     }
 
     /**

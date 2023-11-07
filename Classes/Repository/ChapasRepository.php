@@ -44,20 +44,20 @@ class ChapasRepository
      */
     public function insertChapa($dados)
     {
-        if (is_numeric($dados['matriculaLider']) && is_numeric($dados['matriculaVice']) && is_numeric($dados['idTurma'])) {
-            $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (matriculaLider, matriculaVice, idTurma) VALUES (:lider, :vice, :turma)';
+        if (is_numeric($dados['id']) && is_numeric($dados['idLider']) && is_numeric($dados['idVice']) && is_numeric($dados['idTurma'])) {
+            $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (id, idLider, idVice, idTurma) VALUES (:id, :lider, :vice, :turma)';
             $stmt = $this->Database->getDb()->prepare($consultaInsert);
-            $stmt->bindValue(':lider', $dados['matriculaLider'], \PDO::PARAM_INT);
-            $stmt->bindValue(':vice', $dados['matriculaVice'], \PDO::PARAM_INT);
+            $stmt->bindValue(':id', $dados['id'], \PDO::PARAM_INT);
+            $stmt->bindValue(':lider', $dados['idLider'], \PDO::PARAM_INT);
+            $stmt->bindValue(':vice', $dados['idVice'], \PDO::PARAM_INT);
             $stmt->bindValue(':turma', $dados['idTurma'], \PDO::PARAM_INT);
 
             try {
                 $this->Database->getDb()->beginTransaction();
                 $stmt->execute();
-                $idInserido = $this->Database->getDb()->lastInsertId();
                 if ($stmt->rowCount() > 0) {
                     $this->Database->getDb()->commit();
-                    return $idInserido;
+                    return ConstantesGenericasUtil::MSG_REGISTRO_SUCESSO;
                 }
             } catch (\Exception $e) {
                 $this->Database->getDb()->rollBack();
@@ -76,11 +76,11 @@ class ChapasRepository
      */
     public function updateChapa($id, $dados)
     {
-        $consultaUpdate = 'UPDATE ' . self::TABELA . ' SET matriculaLider = :lider, matriculaVice = :vice, idTurma = :turma WHERE id = :id';
+        $consultaUpdate = 'UPDATE ' . self::TABELA . ' SET idLider = :lider, idVice = :vice, idTurma = :turma WHERE id = :id';
         $stmt = $this->Database->getDb()->prepare($consultaUpdate);
         $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':lider', $dados['matriculaLider'], \PDO::PARAM_INT);
-        $stmt->bindValue(':vice', $dados['matriculaVice'], \PDO::PARAM_INT);
+        $stmt->bindValue(':lider', $dados['idLider'], \PDO::PARAM_INT);
+        $stmt->bindValue(':vice', $dados['idVice'], \PDO::PARAM_INT);
         $stmt->bindValue(':turma', $dados['idTurma'], \PDO::PARAM_INT);
         try {
             $this->Database->getDb()->beginTransaction();

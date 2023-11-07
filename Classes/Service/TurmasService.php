@@ -28,5 +28,5 @@ class TurmasService extends ServiceGeneric
      * NO ACTION
      * Tabela turmas não tem chave estrangeira
      */
-    protected function verificarChaveEstrangeira($dados){}
+    protected function verificarChaveEstrangeira($dados){ return true; }
 }

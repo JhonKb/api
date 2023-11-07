@@ -44,11 +44,10 @@ class VotosRepository
      */
     public function insertVoto($dados)
     {
-        if (!empty($dados['nomeVoto']) && is_numeric($dados['matriculaVoto']) && is_numeric($dados['idChapa'])) {
-            $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (nomeVoto, matriculaVoto, idChapa) VALUES (:nome, :matricula, :chapa)';
+        if (is_numeric($dados['idVotante']) && is_numeric($dados['idChapa'])) {
+            $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (idVotante, idChapa) VALUES (:votante, :chapa)';
             $stmt = $this->Database->getDb()->prepare($consultaInsert);
-            $stmt->bindValue(':nome', $dados['nomeVoto']);
-            $stmt->bindValue(':matricula', $dados['matriculaVoto'], \PDO::PARAM_INT);
+            $stmt->bindValue(':votante', $dados['idVotante'], \PDO::PARAM_INT);
             $stmt->bindValue(':chapa', $dados['idChapa'], \PDO::PARAM_INT);
 
             try {
@@ -76,12 +75,12 @@ class VotosRepository
      */
     public function updateAluno($id, $dados)
     {
-        $consultaUpdate = 'UPDATE ' . self::TABELA . ' SET nomeVoto = :nome, matriculaVoto = :matricula, idChapa = :chapa WHERE id = :id';
+        $consultaUpdate = 'UPDATE ' . self::TABELA . ' SET idVotante = :votante, idChapa = :chapa WHERE id = :id';
         $stmt = $this->Database->getDb()->prepare($consultaUpdate);
         $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':nome', $dados['nomeVoto']);
-        $stmt->bindValue(':matricula', $dados['matriculaVoto'], \PDO::PARAM_INT);
+        $stmt->bindValue(':votante', $dados['idVotante'], \PDO::PARAM_INT);
         $stmt->bindValue(':chapa', $dados['idChapa'], \PDO::PARAM_INT);
+
         try {
             $this->Database->getDb()->beginTransaction();
             $stmt->execute();

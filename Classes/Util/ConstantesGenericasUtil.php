@@ -30,6 +30,7 @@ abstract class ConstantesGenericasUtil
     public const MSG_ERRO_CHAVE_ESTRANGEIRA = 'O ID da chave estrangeira não existe!';
 
     /* SUCESSO */
+    public const MSG_REGISTRO_SUCESSO = 'Registrado com sucesso!';
     public const MSG_DELETADO_SUCESSO = 'Registro deletado com Sucesso!';
     public const MSG_ATUALIZADO_SUCESSO = 'Registro atualizado com Sucesso!';
 

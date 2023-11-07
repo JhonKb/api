@@ -58,15 +58,15 @@ class ChapasService extends ServiceGeneric
     {
         $a1 = false;
         $a2 = false;
-        $lider = $dados['matriculaLider'];
-        $vice = $dados['matriculaVice'];
+        $lider = $dados['idLider'];
+        $vice = $dados['idVice'];
         $turma = $dados['idTurma'];
         if ($lider !== $vice) {
             $array = $this->ChapasRepository->getDatabase()->getAll('alunos');
-            foreach ($array as $i) {
-                if ($i['matriculaAluno'] === $lider && $i['idTurma'] === $turma) {
+            foreach ($array as $aluno) {
+                if ($aluno['id'] === $lider && $aluno['idTurma'] === $turma) {
                     $a1 = true;
-                } else if ($i['matriculaAluno'] === $vice && $i['idTurma'] === $turma) {
+                } else if ($aluno['id'] === $vice && $aluno['idTurma'] === $turma) {
                     $a2 = true;
                 }
             }

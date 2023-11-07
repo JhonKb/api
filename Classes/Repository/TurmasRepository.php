@@ -45,7 +45,7 @@ class TurmasRepository
     public function insertTurma($dados)
     {
         if (!empty($dados['nomeTurma']) && !empty($dados['cursoTurma'])) {
-            $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (nomeTurma, cursoTurma) VALUES (:nome, :curso, )';
+            $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (nomeTurma, cursoTurma) VALUES (:nome, :curso)';
             $stmt = $this->Database->getDb()->prepare($consultaInsert);
             $stmt->bindValue(':nome', $dados['nomeTurma']);
             $stmt->bindValue(':curso', $dados['cursoTurma']);
