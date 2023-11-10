@@ -44,11 +44,11 @@ class AlunosRepository
      */
     public function insertAluno($dados)
     {
-        if (!empty($dados['nomeAluno']) && is_numeric($dados['matriculaAluno']) && is_numeric($dados['idTurma'])) {
+        if (!empty($dados['nomeAluno']) && !empty($dados['matriculaAluno']) && is_numeric($dados['idTurma'])) {
             $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (nomeAluno, matriculaAluno, idTurma) VALUES (:nome, :matricula, :turma)';
             $stmt = $this->Database->getDb()->prepare($consultaInsert);
             $stmt->bindValue(':nome', $dados['nomeAluno']);
-            $stmt->bindValue(':matricula', $dados['matriculaAluno'], \PDO::PARAM_INT);
+            $stmt->bindValue(':matricula', $dados['matriculaAluno']);
             $stmt->bindValue(':turma', $dados['idTurma'], \PDO::PARAM_INT);
 
             try {
@@ -80,7 +80,7 @@ class AlunosRepository
         $stmt = $this->Database->getDb()->prepare($consultaUpdate);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':nome', $dados['nomeAluno']);
-        $stmt->bindValue(':matricula', $dados['matriculaAluno'], \PDO::PARAM_INT);
+        $stmt->bindValue(':matricula', $dados['matriculaAluno']);
         $stmt->bindValue(':turma', $dados['idTurma'], \PDO::PARAM_INT);
         try {
             $this->Database->getDb()->beginTransaction();

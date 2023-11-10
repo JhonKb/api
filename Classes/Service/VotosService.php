@@ -2,6 +2,7 @@
 
 namespace Service;
 
+use InvalidArgumentException;
 use Repository\VotosRepository;
 use Util\ConstantesGenericasUtil;
 
@@ -39,7 +40,7 @@ class VotosService extends ServiceGeneric
     protected function verificarChaveEstrangeira($dados)
     {
         try {
-            $chapa = $this->VotosRepository->getDatabase()->getOneByKey('chapas', $dados['idChapa']);
+            $chapa = $this->VotosRepository->getDatabase()->getOneByKey('chapas', $dados['IdChapa']);
         } catch (\Exception $e) {
             throw new \InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_CHAVE_ESTRANGEIRA);
         }
@@ -56,16 +57,24 @@ class VotosService extends ServiceGeneric
      */
     private function verificarAluno($dados, $chapa)
     {
-        $votante = $dados['idVotante'];
+        $mensagem = null;
+        $alunoApto = false;
+        $votante = $dados['IdVotante'];
         $alunos = $this->VotosRepository->getDatabase()->getAll('alunos');
         foreach ($alunos as $aluno) {
             if ($aluno['id'] === $votante) {
                 if ($aluno['idTurma'] === $chapa['idTurma']) {
-                    return true;
+                    $alunoApto = true;
                 }
-                throw new \InvalidArgumentException('Turmas de aluno e chapa não correspondem!');
+                $mensagem = 'Turmas de aluno e chapa não correspondem!';
             }
-            throw new \InvalidArgumentException('Aluno não existe!');
+            $mensagem = 'Aluno não existe!';
         }
+
+        if ($alunoApto === true)
+        {
+            return true;
+        }
+        throw new InvalidArgumentException($mensagem);
     }
 }

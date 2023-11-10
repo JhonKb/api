@@ -44,11 +44,11 @@ class VotosRepository
      */
     public function insertVoto($dados)
     {
-        if (is_numeric($dados['idVotante']) && is_numeric($dados['idChapa'])) {
+        if (is_numeric($dados['IdVotante']) && is_numeric($dados['IdChapa'])) {
             $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (idVotante, idChapa) VALUES (:votante, :chapa)';
             $stmt = $this->Database->getDb()->prepare($consultaInsert);
-            $stmt->bindValue(':votante', $dados['idVotante'], \PDO::PARAM_INT);
-            $stmt->bindValue(':chapa', $dados['idChapa'], \PDO::PARAM_INT);
+            $stmt->bindValue(':votante', $dados['IdVotante'], \PDO::PARAM_INT);
+            $stmt->bindValue(':chapa', $dados['IdChapa'], \PDO::PARAM_INT);
 
             try {
                 $this->Database->getDb()->beginTransaction();
