@@ -44,11 +44,11 @@ class TurmasRepository
      */
     public function insertTurma($dados)
     {
-        if (!empty($dados['nomeTurma']) && !empty($dados['cursoTurma'])) {
+        if (!empty($dados['NomeTurma']) && !empty($dados['CursoTurma'])) {
             $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (nomeTurma, cursoTurma) VALUES (:nome, :curso)';
             $stmt = $this->Database->getDb()->prepare($consultaInsert);
-            $stmt->bindValue(':nome', $dados['nomeTurma']);
-            $stmt->bindValue(':curso', $dados['cursoTurma']);
+            $stmt->bindValue(':nome', $dados['NomeTurma']);
+            $stmt->bindValue(':curso', $dados['CursoTurma']);
 
             try {
                 $this->Database->getDb()->beginTransaction();
@@ -78,8 +78,8 @@ class TurmasRepository
         $consultaUpdate = 'UPDATE ' . self::TABELA . ' SET nomeTurma = :nome, cursoTurma = :curso WHERE id = :id';
         $stmt = $this->Database->getDb()->prepare($consultaUpdate);
         $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':nome', $dados['nomeTurma']);
-        $stmt->bindValue(':curso', $dados['cursoTurma']);
+        $stmt->bindValue(':nome', $dados['NomeTurma']);
+        $stmt->bindValue(':curso', $dados['CursoTurma']);
         try {
             $this->Database->getDb()->beginTransaction();
             $stmt->execute();

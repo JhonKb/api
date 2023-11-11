@@ -44,13 +44,13 @@ class ChapasRepository
      */
     public function insertChapa($dados)
     {
-        if (is_numeric($dados['id']) && is_numeric($dados['idLider']) && is_numeric($dados['idVice']) && is_numeric($dados['idTurma'])) {
+        if (is_numeric($dados['Id']) && is_numeric($dados['IdLider']) && is_numeric($dados['IdVice']) && is_numeric($dados['IdTurma'])) {
             $consultaInsert = 'INSERT INTO ' . self::TABELA . ' (id, idLider, idVice, idTurma) VALUES (:id, :lider, :vice, :turma)';
             $stmt = $this->Database->getDb()->prepare($consultaInsert);
             $stmt->bindValue(':id', $dados['id'], \PDO::PARAM_INT);
-            $stmt->bindValue(':lider', $dados['idLider'], \PDO::PARAM_INT);
-            $stmt->bindValue(':vice', $dados['idVice'], \PDO::PARAM_INT);
-            $stmt->bindValue(':turma', $dados['idTurma'], \PDO::PARAM_INT);
+            $stmt->bindValue(':lider', $dados['IdLider'], \PDO::PARAM_INT);
+            $stmt->bindValue(':vice', $dados['IdVice'], \PDO::PARAM_INT);
+            $stmt->bindValue(':turma', $dados['IdTurma'], \PDO::PARAM_INT);
 
             try {
                 $this->Database->getDb()->beginTransaction();
@@ -79,9 +79,9 @@ class ChapasRepository
         $consultaUpdate = 'UPDATE ' . self::TABELA . ' SET idLider = :lider, idVice = :vice, idTurma = :turma WHERE id = :id';
         $stmt = $this->Database->getDb()->prepare($consultaUpdate);
         $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':lider', $dados['idLider'], \PDO::PARAM_INT);
-        $stmt->bindValue(':vice', $dados['idVice'], \PDO::PARAM_INT);
-        $stmt->bindValue(':turma', $dados['idTurma'], \PDO::PARAM_INT);
+        $stmt->bindValue(':lider', $dados['IdLider'], \PDO::PARAM_INT);
+        $stmt->bindValue(':vice', $dados['IdVice'], \PDO::PARAM_INT);
+        $stmt->bindValue(':turma', $dados['IdTurma'], \PDO::PARAM_INT);
         try {
             $this->Database->getDb()->beginTransaction();
             $stmt->execute();

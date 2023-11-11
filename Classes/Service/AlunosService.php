@@ -39,7 +39,7 @@ class AlunosService extends ServiceGeneric
     protected function verificarChaveEstrangeira($dados)
     {
         try {
-            $this->AlunosRepository->getDatabase()->getOneByKey('turmas', $dados['idTurma']);
+            $this->AlunosRepository->getDatabase()->getOneByKey('turmas', $dados['IdTurma']);
             return true;
         } catch (\Exception $e) {
             throw new \InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_CHAVE_ESTRANGEIRA);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07/11/2023 às 15:06
+-- Tempo de geração: 11/11/2023 às 22:42
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `alunos` (
   `id` int(11) NOT NULL,
   `nomeAluno` varchar(50) NOT NULL,
-  `matriculaAluno` int(8) NOT NULL,
+  `matriculaAluno` varchar(8) NOT NULL,
   `idTurma` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -39,10 +39,46 @@ CREATE TABLE `alunos` (
 --
 
 INSERT INTO `alunos` (`id`, `nomeAluno`, `matriculaAluno`, `idTurma`) VALUES
-(1, 'Geraldo Alcino', 22222222, 3),
-(2, 'Lula Drão', 22222223, 3),
-(3, 'Bozo Naro', 22222224, 3),
-(4, 'Sicrana Tebet', 22222225, 3);
+(1, 'João Turma2', '20000001', 2),
+(2, 'Maria Turma2', '20000002', 2),
+(3, 'José Turma2', '20000003', 2),
+(4, 'Ana Turma2', '20000004', 2),
+(5, 'Pedro Turma2', '20000005', 2),
+(6, 'Laura Turma2', '20000006', 2),
+(7, 'Carlos Turma2', '20000007', 2),
+(8, 'Mariana Turma2', '20000008', 2),
+(9, 'Lucas Turma2', '20000009', 2),
+(10, 'Beatriz Turma2', '20000010', 2),
+(11, 'João Turma3', '20000011', 3),
+(12, 'Maria Turma3', '20000012', 3),
+(13, 'José Turma3', '20000013', 3),
+(14, 'Ana Turma3', '20000014', 3),
+(15, 'Pedro Turma3', '20000015', 3),
+(16, 'Laura Turma3', '20000016', 3),
+(17, 'Carlos Turma3', '20000017', 3),
+(18, 'Mariana Turma3', '20000018', 3),
+(19, 'Lucas Turma3', '20000019', 3),
+(20, 'Beatriz Turma3', '20000020', 3),
+(21, 'João Turma4', '20000021', 4),
+(22, 'Maria Turma4', '20000022', 4),
+(23, 'José Turma4', '20000023', 4),
+(24, 'Ana Turma4', '20000024', 4),
+(25, 'Pedro Turma4', '20000025', 4),
+(26, 'Laura Turma4', '20000026', 4),
+(27, 'Carlos Turma4', '20000027', 4),
+(28, 'Mariana Turma4', '20000028', 4),
+(29, 'Lucas Turma4', '20000029', 4),
+(30, 'Beatriz Turma4', '20000030', 4),
+(31, 'João Turma5', '20000031', 5),
+(32, 'Maria Turma5', '20000032', 5),
+(33, 'José Turma5', '20000033', 5),
+(34, 'Ana Turma5', '20000034', 5),
+(35, 'Pedro Turma5', '20000035', 5),
+(36, 'Laura Turma5', '20000036', 5),
+(37, 'Carlos Turma5', '20000037', 5),
+(38, 'Mariana Turma5', '20000038', 5),
+(39, 'Lucas Turma5', '20000039', 5),
+(40, 'Beatriz Turma5', '20000040', 5);
 
 --
 -- Acionadores `alunos`
@@ -94,8 +130,18 @@ CREATE TABLE `chapas` (
 --
 
 INSERT INTO `chapas` (`id`, `idTurma`, `idLider`, `idVice`) VALUES
-(12345, 3, 1, 2),
-(12543, 3, 3, 4);
+(11, 2, 1, 2),
+(12, 2, 3, 4),
+(13, 2, 5, 6),
+(17, 4, 21, 22),
+(21, 5, 33, 34),
+(22, 5, 35, 36),
+(29, 4, 25, 26),
+(38, 4, 23, 24),
+(40, 5, 31, 32),
+(41, 3, 11, 12),
+(52, 3, 13, 14),
+(63, 3, 15, 16);
 
 -- --------------------------------------------------------
 
@@ -119,7 +165,19 @@ INSERT INTO `turmas` (`id`, `nomeTurma`, `cursoTurma`) VALUES
 (3, 'ADS 3/4', 'ADS'),
 (4, 'Psicologia 1/2', 'Psicologia'),
 (5, 'Direito 1/2', 'Direito'),
-(6, 'Direito 3/4', 'Direito');
+(6, 'Direito 3/4', 'Direito'),
+(7, 'Enfermagem 1/2', 'Enfermagem'),
+(8, 'Enfermagem 3/4', 'Enfermagem'),
+(9, 'Psicologia 5/6', 'Psicologia'),
+(10, 'ADS 5', 'ADS'),
+(11, 'Direito 5/6', 'Direito'),
+(12, 'Enfermagem 5/6', 'Enfermagem'),
+(13, 'Psicologia 7/8', 'Psicologia'),
+(14, 'Direito 7/8', 'Direito'),
+(15, 'Enfermagem 7/8', 'Enfermagem'),
+(16, 'Psicologia 9/10', 'Psicologia'),
+(17, 'Direito 9/10', 'Direito'),
+(18, 'Enfermagem 9/10', 'Enfermagem');
 
 --
 -- Acionadores `turmas`
@@ -164,13 +222,6 @@ CREATE TABLE `votos` (
   `idVotante` int(11) NOT NULL,
   `idChapa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Despejando dados para a tabela `votos`
---
-
-INSERT INTO `votos` (`id`, `idVotante`, `idChapa`) VALUES
-(1, 1, 12345);
 
 --
 -- Acionadores `votos`
@@ -249,13 +300,13 @@ ALTER TABLE `votos`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de tabela `turmas`
 --
 ALTER TABLE `turmas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `votos`

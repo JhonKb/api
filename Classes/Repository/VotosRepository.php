@@ -78,8 +78,8 @@ class VotosRepository
         $consultaUpdate = 'UPDATE ' . self::TABELA . ' SET idVotante = :votante, idChapa = :chapa WHERE id = :id';
         $stmt = $this->Database->getDb()->prepare($consultaUpdate);
         $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':votante', $dados['idVotante'], \PDO::PARAM_INT);
-        $stmt->bindValue(':chapa', $dados['idChapa'], \PDO::PARAM_INT);
+        $stmt->bindValue(':votante', $dados['IdVotante'], \PDO::PARAM_INT);
+        $stmt->bindValue(':chapa', $dados['IdChapa'], \PDO::PARAM_INT);
 
         try {
             $this->Database->getDb()->beginTransaction();

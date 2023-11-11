@@ -39,7 +39,7 @@ class ChapasService extends ServiceGeneric
     protected function verificarChaveEstrangeira($dados)
     {
         try {
-            $this->ChapasRepository->getDatabase()->getOneByKey('turmas', $dados['idTurma']);
+            $this->ChapasRepository->getDatabase()->getOneByKey('turmas', $dados['IdTurma']);
         } catch (\Exception $e) {
             throw new \InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_CHAVE_ESTRANGEIRA);
         }
@@ -58,9 +58,9 @@ class ChapasService extends ServiceGeneric
     {
         $a1 = false;
         $a2 = false;
-        $lider = $dados['idLider'];
-        $vice = $dados['idVice'];
-        $turma = $dados['idTurma'];
+        $lider = $dados['IdLider'];
+        $vice = $dados['IdVice'];
+        $turma = $dados['IdTurma'];
         if ($lider !== $vice) {
             $array = $this->ChapasRepository->getDatabase()->getAll('alunos');
             foreach ($array as $aluno) {
