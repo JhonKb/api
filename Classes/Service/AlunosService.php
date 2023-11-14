@@ -4,6 +4,7 @@ namespace Service;
 
 use Repository\AlunosRepository;
 use Util\ConstantesGenericasUtil;
+use Util\ServiceGeneric;
 
 /**
  * Classe que representa os serviços da tabela alunos

@@ -5,6 +5,7 @@ namespace Service;
 use InvalidArgumentException;
 use Repository\VotosRepository;
 use Util\ConstantesGenericasUtil;
+use Util\ServiceGeneric;
 
 /**
  * Classe que representa os serviços da tabela votos

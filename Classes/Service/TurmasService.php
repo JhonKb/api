@@ -3,6 +3,7 @@
 namespace Service;
 
 use Repository\TurmasRepository;
+use Util\ServiceGeneric;
 
 /**
  * Classe que representa os serviços da tabela turmas

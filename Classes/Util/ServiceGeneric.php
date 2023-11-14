@@ -1,9 +1,8 @@
 <?php
 
-namespace Service;
+namespace Util;
 
 use InvalidArgumentException;
-use Repository\ChapasRepository;
 use Util\ConstantesGenericasUtil;
 
 /**
@@ -91,13 +90,7 @@ abstract class ServiceGeneric
      */
     public function validarGet()
     {
-        $retorno = null;
-        $recurso = $this->dados['recurso'];
-        if (in_array($recurso, ConstantesGenericasUtil::RECURSO_GET, true)) {
-            $retorno = $this->dados['id'] > 0 ? $this->getOneByKey() : $this->$recurso();
-        } else {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
-        }
+        $retorno = $this->dados['id'] > 0 ? $this->listarId() : $this->listar();
         $this->validarRetornoRequest($retorno);
         return $retorno;
     }
@@ -108,13 +101,7 @@ abstract class ServiceGeneric
      */
     public function validarDelete()
     {
-        $retorno = null;
-        $recurso = $this->dados['recurso'];
-        if (in_array($recurso, ConstantesGenericasUtil::RECURSO_DELETE, true)) {
-            $retorno = $this->validarIdObrigatorio($recurso);
-        } else {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
-        }
+        $retorno = $this->validarIdObrigatorio('deletar');
         $this->validarRetornoRequest($retorno);
         return $retorno;
     }
@@ -125,17 +112,11 @@ abstract class ServiceGeneric
      */
     public function validarPost()
     {
-        $retorno = null;
-        $recurso = $this->dados['recurso'];
-        if (in_array($recurso, ConstantesGenericasUtil::RECURSO_POST, true)) {
-            if($this->verificarChaveEstrangeira($this->dadosCorpoRequest)) {
-                $retorno = $this->$recurso();
-            }
-        } else {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
-        }
-        $this->validarRetornoRequest($retorno);
-        return $retorno;
+        if($this->verificarChaveEstrangeira($this->dadosCorpoRequest)) {
+            $retorno = $this->cadastrar();
+            $this->validarRetornoRequest($retorno);
+            return $retorno;
+        } 
     }
 
     /**
@@ -144,23 +125,17 @@ abstract class ServiceGeneric
      */
     public function validarPut()
     {
-        $retorno = null;
-        $recurso = $this->dados['recurso'];
-        if (in_array($recurso, ConstantesGenericasUtil::RECURSO_PUT, true)) {
-            if($this->verificarChaveEstrangeira($this->dadosCorpoRequest)) {
-                $retorno = $this->validarIdObrigatorio($recurso);
-            }
-        } else {
-            throw new InvalidArgumentException(ConstantesGenericasUtil::MSG_ERRO_RECURSO_INEXISTENTE);
+        if($this->verificarChaveEstrangeira($this->dadosCorpoRequest)) {
+            $retorno = $this->validarIdObrigatorio('atualizar');
+            $this->validarRetornoRequest($retorno);
+            return $retorno;
         }
-        $this->validarRetornoRequest($retorno);
-        return $retorno;
     }
 
     /**
      * @return mixed
      */
-    private function getOneByKey()
+    private function listarId()
     {
         return $this->repository->getDatabase()->getOneByKey($this->tabela, $this->dados['id']);
     }
@@ -191,7 +166,7 @@ abstract class ServiceGeneric
     {
         //Transforma no método insert do repositório da tabela informada
         $insert = 'insert'.rtrim(ucfirst($this->tabela), "s");
-            return ['id_Inserido' => $this->repository->$insert($this->dadosCorpoRequest)];
+        return ['id_Inserido' => $this->repository->$insert($this->dadosCorpoRequest)];
     }
 
     /**
